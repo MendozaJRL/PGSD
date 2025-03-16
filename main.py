@@ -19,8 +19,11 @@ def main():
     
     if image_file:
         file_bytes = np.asarray(bytearray(image_file.read()), dtype=np.uint8)
-        image = cv2.imdecode(file_bytes, cv2.IMREAD_COLOR)
-        st.image(image, caption="Captured Image", use_column_width=True)
+        image = cv2.imdecode(file_bytes, cv2.IMREAD_COLOR)  # Read as BGR
+        
+        # Convert BGR to RGB before displaying
+        image_rgb = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+        st.image(image_rgb, caption="Captured Image", use_column_width=True)
         
         with st.spinner("Processing Image..."):
             model = YOLO("model_50_1024_8_0_4.pt")
@@ -41,7 +44,9 @@ def main():
 
             detection_results.append({'Label': class_name, 'Confidence': confidence})
         
-        st.image(cv2.cvtColor(annotated_image, cv2.COLOR_BGR2RGB), caption="Detected Growth Stages", use_column_width=True)
+        # Convert annotated image to RGB before displaying
+        annotated_image_rgb = cv2.cvtColor(annotated_image, cv2.COLOR_BGR2RGB)
+        st.image(annotated_image_rgb, caption="Detected Growth Stages", use_column_width=True)
         
         if detection_results:
             st.subheader("Detection Results")
