@@ -5,10 +5,10 @@ from ultralytics import YOLO
 
 # Define the label map
 label_map = {
-    'Flowering': 'Growing',
-    'Vegetative': 'Growing',
-    'Germination': 'Germination',
-    'Harvesting': 'Harvesting'
+    'Flowering': 'Flowering Stage',
+    'Vegetative': 'Vegetative Stage',
+    'Germination': 'Germination Stage',
+    'Harvesting': 'Harvesting Stage'
 }
 
 # Function to capture an image from the device camera
@@ -37,7 +37,7 @@ def main():
             st.image(cv2.cvtColor(image, cv2.COLOR_BGR2RGB), caption="Captured Image", use_column_width=True)
             
             with st.spinner("Processing Image..."):
-                model = YOLO("40 Epoch Plant Growth Stage YOLOv8 Model.pt")
+                model = YOLO("train_50_1024_8_0_4.pt")
                 results = model.predict(source=image, save=False, conf=0.25)
 
             annotated_image = image.copy()
