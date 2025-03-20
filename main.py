@@ -20,7 +20,6 @@ def main():
     if image_file:
         file_bytes = np.asarray(bytearray(image_file.read()), dtype=np.uint8)
         image = cv2.imdecode(file_bytes, cv2.IMREAD_COLOR)
-        st.image(image, caption="Captured Image", use_column_width=True)
         
         with st.spinner("Processing Image..."):
             model = YOLO("model_150_640_8_0_5_1.pt")
