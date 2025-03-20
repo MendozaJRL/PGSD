@@ -23,7 +23,7 @@ def main():
         st.image(image, caption="Captured Image", use_column_width=True)
         
         with st.spinner("Processing Image..."):
-            model = YOLO("model_50_1024_8_0_5.pt")
+            model = YOLO("model_150_640_8_0_5_1.pt")
             results = model.predict(source=image, save=False, conf=0.25)
 
         annotated_image = image.copy()
